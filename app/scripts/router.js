@@ -3,34 +3,42 @@ var Backbone = require('backbone');
 var React = require('react');
 var ReactDOM = require('react-DOM');
 
+var User = require('./models/user').User;
 var Message = require('./models/message').Message;
 var MessageCollection = require('./models/messages-collection').MessageCollection;
-var User = require('./models/user').User;
-var ChatAppComponent = require('./components/index.jsx').ChatAppComponent;
 
+var ChatAppComponent = require('./components/index.jsx').ChatAppComponent;
+var LoginForm = require('./components/index.jsx').LoginForm;
+var MessageBoard = require('./components/index.jsx').MessageBoard;
 
 var Router = Backbone.Router.extend({
   routes: {
+    '': 'login',
     'login': 'login',
     'chat': 'chat'
   },
   initialize: function(){
     this.user = new User();
+    this.message = new Message();
     this.collection = new MessageCollection();
   },
-  'login': function(){
-    //alert('user login'); //enter "#login" after "dist/" in address bar
-
+  login: function(){
+    var self = this;
+    ReactDOM.render(
+      React.createElement(LoginForm, {router: self}),
+      document.getElementById('app')
+    );
   },
-  'chat': function(){
-    //alert('chat'); //enter "#chat" after "dist/" in address bar
+  chat: function(){
+    var self = this;
+    ReactDOM.render(
+      React.createElement(MessageBoard, {router: self}),
+      document.getElementById('app')
+    );
   }
-})
 
-ReactDOM.render(
-  React.createElement(ChatAppComponent),
-  document.getElementById('app')
-);
+});
+
 
 
 var router = new Router();
