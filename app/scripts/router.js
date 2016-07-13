@@ -4,12 +4,10 @@ var React = require('react');
 var ReactDOM = require('react-DOM');
 
 var User = require('./models/user').User;
-var Message = require('./models/message').Message;
-var MessageCollection = require('./models/messages-collection').MessageCollection;
-
 var ChatAppComponent = require('./components/index.jsx').ChatAppComponent;
 var LoginForm = require('./components/index.jsx').LoginForm;
 var MessageBoard = require('./components/index.jsx').MessageBoard;
+
 
 var Router = Backbone.Router.extend({
   routes: {
@@ -19,8 +17,6 @@ var Router = Backbone.Router.extend({
   },
   initialize: function(){
     this.user = new User();
-    this.message = new Message();
-    this.collection = new MessageCollection();
   },
   login: function(){
     var self = this;
@@ -36,9 +32,7 @@ var Router = Backbone.Router.extend({
       document.getElementById('app')
     );
   }
-
 });
-
 
 
 var router = new Router();
